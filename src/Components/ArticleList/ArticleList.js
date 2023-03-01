@@ -41,31 +41,6 @@ class ArticleList extends Component {
     this.getArticleFromApi();
   }
 
-//   getArticles(url) {
-//     this.setState({
-//       isLoaded: false
-//     });
-
-//     fetch(url)
-//     .then( response => response.json())
-//     .then(
-
-//       (result) => {
-//         this.setState({
-//           isLoaded: true,
-//           articles: result.articles
-//         });
-//       },
-
-//       (error) => {
-//         this.setState({
-//           isLoaded: true,
-//           error
-//         })
-//       }
-//     )
-//   }
-
   componentDidMount() {;
     this.getArticleFromApi();
   }
