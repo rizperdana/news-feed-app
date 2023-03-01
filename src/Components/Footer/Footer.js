@@ -5,7 +5,7 @@ const Footer = () =>
   <div>
     <footer>
       <p>
-        Brought to you by <a href="https://github.com/rizperdana" className="footer-a">rizperdana</a>
+        Made by <a href="https://github.com/rizperdana" className="news-feed-link">rizperdana</a> and lots of ❤️
       </p>
     </footer>
   </div>
