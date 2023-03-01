@@ -12,8 +12,8 @@ const EmptyView = () => {
 const baseUrl = process.env.BASE_API
 
 const categories = [
-    'business', 'entertainment', 'environment', 'food', 'health', 'politics',
-    'science', 'sports', 'technology'
+    'technology', 'business', 'entertainment', 'environment', 'food',
+    'health', 'politics', 'science', 'sports'
 ];
 
 class ArticleList extends Component {
@@ -23,11 +23,20 @@ class ArticleList extends Component {
             error: null,
             isLoaded: false,
             articles: [],
-            query: ''
+            category: categories[0],
+            query: 'php'
         }
     }
 
-    handleNewsSearch(q) {
+    handleQueryChange(q) {
+        this.setState({ query: q.target.value });
+    }
+
+    handleCategoryChange(category) {
+        this.setState({ category: category.target.value })
+    }
+
+    handleNewsSearch() {
         this.setState({
             isLoaded: false
         });
@@ -36,8 +45,8 @@ class ArticleList extends Component {
         const payloadBody = {
             countryCode: "us",
             languageCode: "en",
-            category: choosenCategory,
-            query: queryValue,
+            category: this.state.category,
+            query: this.state.query,
             page: 1
         }
 
@@ -65,12 +74,60 @@ class ArticleList extends Component {
         )
     }
 
-    componentDidMount() {;
-        this.handleNewsSearch('');
+    componentDidMount() {
+        this.handleNewsSearch();
     }
 
     render() {
+        const {error, isLoaded, articles} = this.state;
 
+        if(error) {
+            return <div>Error in loading article</div>
+        } else if (!isLoaded) {
+            return <LoadingSpinner/>
+        } else {
+            return(
+                <div>
+                    <div className="search-wrap">
+                        <div className="search-bar">
+                            <input type="text"
+                                className="search-input"
+                                value={this.state.query}
+                                onChange={this.handleQueryChange.bind(this)}
+                            />
+                            <button type="submit"
+                                className="search-button"
+                                onClick={() => this.handleNewsSearch()}
+                                disabled={!this.state.query}
+                            >
+                                <i className="fa fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div className="category-list-div">
+                        {categories.map((category, index) =>
+                            <div key={index} className="individual-category"
+                                onClick={() => this.handleCategoryChange(category)}>
+                                <button className="category-pill">{category}</button>
+                            </div>
+                        )}
+                    </div>
+                    {
+                        articles.length === 1 ?
+                        <h4>{articles.length} RESULT FOUND</h4> :
+                        <h4>{articles.length} RESULTS FOUND</h4>
+                    }
+                    {
+                        articles.length ? <div className="article-list-div">
+                        {articles.map((article, i) => (
+                            article.creator ?
+                            <Article article={article} key={i}/> : null
+                        ))}
+                        </div> : <EmptyView />
+                    }
+                    </div>
+            )
+        }
     }
 }
 

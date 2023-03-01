@@ -6,10 +6,10 @@ const MoreLink = ({ url }) =>
 
 const Article = ({article}) => {
 
-    const handleClick = useCallback(url => {
+    const handleClick = useCallback((url) => {
         let win = window.open(url, '_blank');
         win.focus();
-    });
+    }, []);
 
     function truncateContent(content) {
         let indexToTruncateFrom = content.lastIndexOf('[');
@@ -20,18 +20,18 @@ const Article = ({article}) => {
         <div className="article-div">
 
         <div className="author-div">
-            <h5 className="author-text">{article.source.name}</h5>
+            <h5 className="author-text">{article.source_id}</h5>
         </div>
 
         <div className="image-div">
-            <img alt={article.title} src={article.urlToImage}
+            <img alt={article.title} src={article.image_url}
                 className="link-point article-image"
-                onClick={() => handleClick(article.url)}
+                onClick={handleClick(article.link)}
             />
         </div>
 
         <div className="title-div">
-            <h1 className="link-point title" onClick={() => handleClick(article.url)}>
+            <h1 className="link-point title" onClick={handleClick(article.link)}>
             {article.title}
             </h1>
         </div>
@@ -46,9 +46,9 @@ const Article = ({article}) => {
             {article.content ?
             <p className="content">
                 {truncateContent(article.content)}
-                <MoreLink url={article.url} />
+                <MoreLink url={article.link} />
             </p>
-            : <button className="show-more-button" onClick={() => handleClick(article.url)}>
+            : <button className="show-more-button" onClick={() => handleClick(article.link)}>
                 <i className="fa fa-ellipsis-h"></i>
             </button>}
         </div>
