@@ -34,7 +34,6 @@ class ArticleList extends Component {
 
   handleQueryChange(e) {
     this.setState({ query: e.target.value });
-    this.getArticleFromApi();
   }
 
   handleQuerySearch() {
