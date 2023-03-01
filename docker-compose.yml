@@ -1,0 +1,13 @@
+version: '3'
+services:
+  react-ui:
+    build:
+      context: ./
+    ports:
+      - "3000:3000"
+    container_name: react-ui
+    stdin_open: true
+    restart: unless-stopped
+    working_dir: /usr/src/app/news-feed-app
+    volumes:
+      - ./:/usr/src/app/news-feed-app

@@ -9,7 +9,8 @@ const EmptyView = () => {
     </div>
 }
 
-const baseUrl = process.env.REACT_APP_BASE_API
+// const baseUrl = process.env.REACT_APP_BASE_API
+const baseUrl = "http://127.0.0.1:8000/api"
 
 const subCategories = [
     'technology', 'business', 'entertainment', 'environment', 'food',
